@@ -1,5 +1,5 @@
-import graphqlHTTP from 'express-graphql'
-import schema from './schema'
+var graphqlHTTP = require('express-graphql')
+var schema = require('./schema')
 var express = require('express')
 var path = require('path')
 var cookieParser = require('cookie-parser')
@@ -23,4 +23,4 @@ app.use(
   })
 )
 
-export default app
+module.exports = app
