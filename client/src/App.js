@@ -27,6 +27,7 @@ import Environment from './Environment'
 import SearchImage from './SearchImage'
 import { AppQuery } from './__generated__/AppQuery.graphql'
 import { loadPartialConfig } from '@babel/core'
+import whyUpdate from './whyUpdate'
 
 export const PaletteContext = React.createContext()
 
@@ -49,25 +50,25 @@ const useStyles = makeStyles(({ spacing, palette }) => ({
   }
 }))
 
-const App = ({ setPalette }) => {
+const App = props => {
   const [startTransition, isPending] = useTransition({ timeoutMs: 5000 })
   const [searchValue, setSearchValue] = React.useState('')
   const [inputValue, setInputValue] = React.useState('')
-  const [fetchKey, setFetchKey] = React.useState(0)
 
-  const data = useLazyLoadQuery(
+  whyUpdate('App', props)
+
+  const { setPalette } = props
+
+  const { imagePalette } = useLazyLoadQuery(
     graphql`
       query AppQuery($searchValue: String) {
         imagePalette(searchValue: $searchValue) {
+          randomWord
           ...SearchImage_imagePalette
         }
       }
     `,
-    { searchValue },
-    {
-      fetchPolicy: searchValue === '' ? 'network-only' : 'store-and-network',
-      fetchKey
-    }
+    { searchValue }
   )
 
   const classes = useStyles()
@@ -84,7 +85,7 @@ const App = ({ setPalette }) => {
           <Suspense fallback={'Loading...'}>
             <SearchImage
               setInputValue={setInputValue}
-              imagePalette={data.imagePalette}
+              imagePalette={imagePalette}
               setPalette={setPalette}
               isPending={isPending}
             />
@@ -118,8 +119,7 @@ const App = ({ setPalette }) => {
                 color="secondary"
                 onClick={() => {
                   startTransition(() => {
-                    setSearchValue('')
-                    setFetchKey(fetchKey + 1)
+                    setSearchValue(imagePalette.randomWord)
                   })
                 }}
               >

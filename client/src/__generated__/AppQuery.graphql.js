@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 1b2b3f84549419077b3e0b12d9479abd
+ * @relayHash 0cfd9a66ad9b860b241caf397477c1ac
  */
 
 /* eslint-disable */
@@ -15,7 +15,8 @@ export type AppQueryVariables = {|
 |};
 export type AppQueryResponse = {|
   +imagePalette: ?{|
-    +$fragmentRefs: SearchImage_imagePalette$ref
+    +randomWord: ?string,
+    +$fragmentRefs: SearchImage_imagePalette$ref,
   |}
 |};
 export type AppQuery = {|
@@ -30,6 +31,7 @@ query AppQuery(
   $searchValue: String
 ) {
   imagePalette(searchValue: $searchValue) {
+    randomWord
     ...SearchImage_imagePalette
   }
 }
@@ -59,7 +61,14 @@ v1 = [
     "name": "searchValue",
     "variableName": "searchValue"
   }
-];
+],
+v2 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "randomWord",
+  "args": null,
+  "storageKey": null
+};
 return {
   "kind": "Request",
   "fragment": {
@@ -78,6 +87,7 @@ return {
         "concreteType": "ImagePalette",
         "plural": false,
         "selections": [
+          (v2/*: any*/),
           {
             "kind": "FragmentSpread",
             "name": "SearchImage_imagePalette",
@@ -101,6 +111,7 @@ return {
         "concreteType": "ImagePalette",
         "plural": false,
         "selections": [
+          (v2/*: any*/),
           {
             "kind": "ScalarField",
             "alias": null,
@@ -148,11 +159,11 @@ return {
     "operationKind": "query",
     "name": "AppQuery",
     "id": null,
-    "text": "query AppQuery(\n  $searchValue: String\n) {\n  imagePalette(searchValue: $searchValue) {\n    ...SearchImage_imagePalette\n  }\n}\n\nfragment SearchImage_imagePalette on ImagePalette {\n  searchValue\n  imageSrc\n  palette {\n    colorType\n    hex\n  }\n}\n",
+    "text": "query AppQuery(\n  $searchValue: String\n) {\n  imagePalette(searchValue: $searchValue) {\n    randomWord\n    ...SearchImage_imagePalette\n  }\n}\n\nfragment SearchImage_imagePalette on ImagePalette {\n  searchValue\n  imageSrc\n  palette {\n    colorType\n    hex\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '186f940850bc5e9a10a25519942be858';
+(node/*: any*/).hash = '6e1fcd518aab4490dbbd4caf446d192b';
 module.exports = node;

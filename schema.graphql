@@ -1,6 +1,13 @@
 type ImagePalette {
   searchValue: String
   imageSrc: String
+  randomWord: String
+  palette: [Palette]
+}
+
+type Palette {
+  colorType: String
+  hex: String
 }
 
 type Query {

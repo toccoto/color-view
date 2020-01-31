@@ -6,63 +6,8 @@ var {
   GraphQLSchema,
   GraphQLObjectType,
   GraphQLString,
-  GraphQLList,
-  GraphQLInt
+  GraphQLList
 } = require('graphql')
-
-const posts = [
-  {
-    title: 'First post',
-    description: 'Content of the first post',
-    author: 'Flavio'
-  },
-  {
-    title: 'Second post',
-    description: 'Content of the second post',
-    author: 'Roger'
-  }
-]
-
-const authors = {
-  Flavio: {
-    name: 'Flavio',
-    age: 36
-  },
-  Roger: {
-    name: 'Roger',
-    age: 7
-  }
-}
-
-const authorType = new GraphQLObjectType({
-  name: 'Author',
-  fields: {
-    name: {
-      type: GraphQLString
-    },
-    age: {
-      type: GraphQLInt
-    }
-  }
-})
-
-const postType = new GraphQLObjectType({
-  name: 'Post',
-  fields: {
-    title: {
-      type: GraphQLString
-    },
-    description: {
-      type: GraphQLString
-    },
-    author: {
-      type: authorType,
-      resolve: source => {
-        return authors[source.author]
-      }
-    }
-  }
-})
 
 const paletteType = new GraphQLObjectType({
   name: 'Palette',
@@ -79,6 +24,9 @@ const imagePaletteType = new GraphQLObjectType({
       type: GraphQLString
     },
     imageSrc: {
+      type: GraphQLString
+    },
+    randomWord: {
       type: GraphQLString
     },
     palette: {
@@ -102,7 +50,6 @@ const queryType = new GraphQLObjectType({
           searchValue = !searchValue
             ? nouns.data[parseInt(Math.random() * 877)]
             : searchValue
-          console.log(nouns.data.length)
           const data = await axios.get('https://pixabay.com/api/', {
             params: {
               key: process.env.IMAGE_CLIENT_ID,
@@ -120,7 +67,8 @@ const queryType = new GraphQLObjectType({
           return {
             searchValue,
             imageSrc: data.data.hits[0].webformatURL,
-            palette: pValues
+            palette: pValues,
+            randomWord: nouns.data[parseInt(Math.random() * 877)]
           }
         } catch (err) {
           console.log(err)
