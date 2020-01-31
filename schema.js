@@ -98,13 +98,16 @@ const queryType = new GraphQLObjectType({
         }
       },
       resolve: async (source, { searchValue }) => {
+        console.log(process.env)
         try {
           searchValue = !searchValue
             ? nouns.data[parseInt(Math.random() * 1000)]
             : searchValue
           const data = await axios.get('https://pixabay.com/api/', {
             params: {
-              key: process.env.IMAGE_CLIENT_ID,
+              key:
+                process.env.IMAGE_CLIENT_ID ||
+                process.env.REACT_APP_IMAGE_CLIENT_ID,
               q: searchValue,
               per_page: 3,
               image_type: 'photo'

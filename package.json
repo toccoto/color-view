@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "nodemon --exec babel-node ./bin/www",
-    "dev": "nodemon -r dotenv/config --exec babel-node ./bin/www"
+    "dev": "nodemon -r dotenv/config --exec babel-node ./bin/www",
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "dependencies": {
     "axios": "^0.19.2",
