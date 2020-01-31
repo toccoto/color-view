@@ -1,0 +1,49 @@
+{
+  "name": "client",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@material-ui/core": "^4.9.0",
+    "@material-ui/icons": "^4.5.1",
+    "@material-ui/lab": "^4.0.0-alpha.40",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "axios": "^0.19.2",
+    "babel-plugin-relay": "^8.0.0",
+    "react": "0.0.0-experimental-f42431abe",
+    "react-dom": "0.0.0-experimental-f42431abe",
+    "react-relay": "0.0.0-experimental-5f1cb628",
+    "react-scripts": "3.3.0",
+    "relay-runtime": "^8.0.0"
+  },
+  "scripts": {
+    "start": "yarn run relay && react-scripts start",
+    "build": "yarn run relay && react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "relay": "yarn run relay-compiler --schema schema.graphql --src ./src/ --watchman false $@"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "proxy": "http://localhost:3001",
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-plugin-react": "^7.18.0",
+    "graphql": "^14.6.0",
+    "relay-compiler": "^8.0.0"
+  }
+}

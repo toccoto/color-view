@@ -1,0 +1,9 @@
+type ImagePalette {
+  searchValue: String
+  imageSrc: String
+}
+
+type Query {
+  imagePalette(searchValue: String): ImagePalette
+}
+

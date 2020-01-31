@@ -1,0 +1,15 @@
+type Palette {
+  colorType: String
+  hex: String
+}
+
+type ImagePalette {
+  searchValue: String
+  imageSrc: String
+  palette: [Palette]
+}
+
+type Query {
+  imagePalette(searchValue: String): ImagePalette
+}
+
