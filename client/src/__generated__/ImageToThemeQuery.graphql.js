@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 0cfd9a66ad9b860b241caf397477c1ac
+ * @relayHash 652c7c99e9a7409e5991dc53175d0d85
  */
 
 /* eslint-disable */
@@ -10,24 +10,24 @@
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
 type SearchImage_imagePalette$ref = any;
-export type AppQueryVariables = {|
+export type ImageToThemeQueryVariables = {|
   searchValue?: ?string
 |};
-export type AppQueryResponse = {|
+export type ImageToThemeQueryResponse = {|
   +imagePalette: ?{|
     +randomWord: ?string,
     +$fragmentRefs: SearchImage_imagePalette$ref,
   |}
 |};
-export type AppQuery = {|
-  variables: AppQueryVariables,
-  response: AppQueryResponse,
+export type ImageToThemeQuery = {|
+  variables: ImageToThemeQueryVariables,
+  response: ImageToThemeQueryResponse,
 |};
 */
 
 
 /*
-query AppQuery(
+query ImageToThemeQuery(
   $searchValue: String
 ) {
   imagePalette(searchValue: $searchValue) {
@@ -73,7 +73,7 @@ return {
   "kind": "Request",
   "fragment": {
     "kind": "Fragment",
-    "name": "AppQuery",
+    "name": "ImageToThemeQuery",
     "type": "Query",
     "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
@@ -99,7 +99,7 @@ return {
   },
   "operation": {
     "kind": "Operation",
-    "name": "AppQuery",
+    "name": "ImageToThemeQuery",
     "argumentDefinitions": (v0/*: any*/),
     "selections": [
       {
@@ -157,13 +157,13 @@ return {
   },
   "params": {
     "operationKind": "query",
-    "name": "AppQuery",
+    "name": "ImageToThemeQuery",
     "id": null,
-    "text": "query AppQuery(\n  $searchValue: String\n) {\n  imagePalette(searchValue: $searchValue) {\n    randomWord\n    ...SearchImage_imagePalette\n  }\n}\n\nfragment SearchImage_imagePalette on ImagePalette {\n  searchValue\n  imageSrc\n  palette {\n    colorType\n    hex\n  }\n}\n",
+    "text": "query ImageToThemeQuery(\n  $searchValue: String\n) {\n  imagePalette(searchValue: $searchValue) {\n    randomWord\n    ...SearchImage_imagePalette\n  }\n}\n\nfragment SearchImage_imagePalette on ImagePalette {\n  searchValue\n  imageSrc\n  palette {\n    colorType\n    hex\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '6e1fcd518aab4490dbbd4caf446d192b';
+(node/*: any*/).hash = '48e70d90e13cc6f27be02565ec12ff2c';
 module.exports = node;

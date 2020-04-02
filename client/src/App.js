@@ -1,6 +1,6 @@
 import React, { Suspense, useTransition } from 'react'
 import graphql from 'babel-plugin-relay/macro'
-import { RelayEnvironmentProvider, useLazyLoadQuery } from 'react-relay/hooks'
+import { RelayEnvironmentProvider, preloadQuery } from 'react-relay/hooks'
 import {
   AppBar,
   Toolbar,
@@ -25,9 +25,8 @@ import logo from './logo.svg'
 import './App.css'
 import Environment from './Environment'
 import SearchImage from './SearchImage'
-import { AppQuery } from './__generated__/AppQuery.graphql'
-import { loadPartialConfig } from '@babel/core'
-import whyUpdate from './whyUpdate'
+import SearchBar from './SearchBar'
+import ImageToTheme from './ImageToTheme'
 
 export const PaletteContext = React.createContext()
 
@@ -55,21 +54,7 @@ const App = props => {
   const [searchValue, setSearchValue] = React.useState('')
   const [inputValue, setInputValue] = React.useState('')
 
-  whyUpdate('App', props)
-
   const { setPalette } = props
-
-  const { imagePalette } = useLazyLoadQuery(
-    graphql`
-      query AppQuery($searchValue: String) {
-        imagePalette(searchValue: $searchValue) {
-          randomWord
-          ...SearchImage_imagePalette
-        }
-      }
-    `,
-    { searchValue }
-  )
 
   const classes = useStyles()
 
@@ -81,53 +66,9 @@ const App = props => {
         </Toolbar>
       </AppBar>
       <Container className={classes.mainContainer}>
-        <Grid container spacing={2} justify="center">
-          <Suspense fallback={'Loading...'}>
-            <SearchImage
-              setInputValue={setInputValue}
-              imagePalette={imagePalette}
-              setPalette={setPalette}
-              isPending={isPending}
-            />
-          </Suspense>
-          <Grid
-            container
-            className={classes.topSpacing}
-            justify="center"
-            alignItems="flex-end"
-          >
-            <Paper variant="outlined">
-              <InputBase
-                className={classes.searchInput}
-                placeholder="Image Search"
-                inputProps={{ 'aria-label': 'search for image' }}
-                value={inputValue}
-                onChange={e => setInputValue(e.target.value)}
-                onKeyPress={e => {
-                  if (e.key === 'Enter') {
-                    startTransition(() => setSearchValue(inputValue))
-                  }
-                }}
-              />
-              <IconButton
-                onClick={e => setSearchValue(inputValue)}
-                aria-label="search"
-              >
-                <SearchIcon />
-              </IconButton>
-              <IconButton
-                color="secondary"
-                onClick={() => {
-                  startTransition(() => {
-                    setSearchValue(imagePalette.randomWord)
-                  })
-                }}
-              >
-                <CasinoIcon />
-              </IconButton>
-            </Paper>
-          </Grid>
-        </Grid>
+        <Suspense fallback="Loading...">
+          <ImageToTheme />
+        </Suspense>
       </Container>
     </div>
   )
